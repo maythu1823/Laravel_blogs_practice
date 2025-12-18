@@ -8,59 +8,56 @@ use App\Http\Requests\UpdateEmployeeRequest;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreEmployeeRequest $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Employee $employee)
-    {
-        //
-    }
+     public function index()
+{
+     $data = Employee::all();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Employee $employee)
-    {
-        //
-    }
+ return view('employees.employee',['datas'=>$data]);
+}       
+     public function index1()
+{
+     //$data=Employee::find(3);
+      $data=Employee::where('position','assistant')->first();
+     //dd($data);
+ return view('employees.employee_detail',['datas'=>$data]);
+}
+public function index2()
+{
+     //$data=Employee::where('position', 'manager')->get();
+   // $data=Employee::orderBy('id', 'desc')->get();
+     $data=(Employee::pluck('position'));
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateEmployeeRequest $request, Employee $employee)
-    {
-        //
-    }
+ return view('employees.employee_by_position',['datas'=>$data]);
+}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Employee $employee)
+     public function create()
+     {
+     $employee = Employee::create([
+          'name' => 'New may',
+          'email' => 'may@gmail.com',
+          'position' => 'assistant'
+     ]);
+     return "created successfully";
+    // dd($employee);
+     }
+
+     public function update()
     {
-        //
-    }
+     $data=Employee::where('position', 'assistant')->first();
+     $data->update(['email' => '123@gmail.com']);
+
+
+        return "updated successfully!";
+     }
+      public function delete()
+    {
+   Employee::where('position', 'student')->delete();
+     
+
+        return "deleted successfully!";
+     }
+
 }
