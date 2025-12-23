@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\TestRelationship\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -31,3 +32,5 @@ Route::get('/employees/byposition',[EmployeeController::class,'index2']);
 Route::get('/employees/create',[EmployeeController::class,'create']);
 Route::get('/employees/update',[EmployeeController::class,'update']);
 Route::get('/employees/delete',[EmployeeController::class,'delete']);
+Route::get('/test-relation', [UserController::class, 'index']);
+Route::get('/test-relation1', [UserController::class, 'index1']);
