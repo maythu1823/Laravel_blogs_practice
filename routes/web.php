@@ -34,3 +34,8 @@ Route::get('/employees/update',[EmployeeController::class,'update']);
 Route::get('/employees/delete',[EmployeeController::class,'delete']);
 Route::get('/test-relation', [UserController::class, 'index']);
 Route::get('/test-relation1', [UserController::class, 'index1']);
+Route::get('/post-list', [UserController::class, 'index2']);
+Route::get('/userprofile', [UserController::class, 'index3']);
+Route::get('/likedposts', [UserController::class, 'index4']);
+Route::get('/post/likers', [UserController::class, 'showPostLikers']);
+Route::get('/user/{id}/latest-comment', [UserController::class, 'showLatestComment']);
