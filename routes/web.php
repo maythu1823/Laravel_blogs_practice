@@ -1,18 +1,17 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TestRelationship\UserController;
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/articles/detail', function () {
- return 'Article Detail';
-});
-
 Route::get('/articles/details', function () {
  return 'Article Details';
 })->name('article.details');
@@ -39,3 +38,15 @@ Route::get('/userprofile', [UserController::class, 'index3']);
 Route::get('/likedposts', [UserController::class, 'index4']);
 Route::get('/post/likers', [UserController::class, 'showPostLikers']);
 Route::get('/user/{id}/latest-comment', [UserController::class, 'showLatestComment']);
+Route::get('/user/{id}/comments', [UserController::class, 'showUserComments']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
