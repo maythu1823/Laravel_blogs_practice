@@ -22,9 +22,9 @@ Route::get('/articles/more', function() {
 
 Route::get('/products',[ProductController::class,'product']);
 
-Route::get('/articles',[ArticleController::class,'index']);
-
-Route::get('/articles/detail',[ArticleController::class,'index1']);
+Route::get('/articles',[ArticleController::class,'index'])
+    ->middleware('auth');
+Route::get('/articles/detail',[ArticleController::class,'index1'])->middleware('auth');
 Route::get('/employees',[EmployeeController::class,'index']);
 Route::get('/employees/detail',[EmployeeController::class,'index1']);
 Route::get('/employees/byposition',[EmployeeController::class,'index2']);
@@ -48,5 +48,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::get('/guest', function () {
+    return 'Guest Page - Only guest can access';
+})->middleware('guest');
+
+Route::get('/auth_user', function () {
+    return 'Auth User Page - Only Auth User can access';
+})->middleware('auth');
+Route::get('/admin', function () {
+    return 'Admin Page - Only admin can access';
+})->middleware('check.email');
 
 require __DIR__.'/auth.php';
