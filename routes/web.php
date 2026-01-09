@@ -6,12 +6,13 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TestRelationship\UserController;
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+use App\Http\Controllers\PostController;
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 Route::get('/articles/details', function () {
  return 'Article Details';
 })->name('article.details');
@@ -22,9 +23,6 @@ Route::get('/articles/more', function() {
 
 Route::get('/products',[ProductController::class,'product']);
 
-Route::get('/articles',[ArticleController::class,'index'])
-    ->middleware('auth');
-Route::get('/articles/detail',[ArticleController::class,'index1'])->middleware('auth');
 Route::get('/employees',[EmployeeController::class,'index']);
 Route::get('/employees/detail',[EmployeeController::class,'index1']);
 Route::get('/employees/byposition',[EmployeeController::class,'index2']);
@@ -39,6 +37,7 @@ Route::get('/likedposts', [UserController::class, 'index4']);
 Route::get('/post/likers', [UserController::class, 'showPostLikers']);
 Route::get('/user/{id}/latest-comment', [UserController::class, 'showLatestComment']);
 Route::get('/user/{id}/comments', [UserController::class, 'showUserComments']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -48,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 Route::get('/guest', function () {
     return 'Guest Page - Only guest can access';
 })->middleware('guest');
@@ -55,8 +55,23 @@ Route::get('/guest', function () {
 Route::get('/auth_user', function () {
     return 'Auth User Page - Only Auth User can access';
 })->middleware('auth');
+
 Route::get('/admin', function () {
     return 'Admin Page - Only admin can access';
 })->middleware('check.email');
 
+Route::get('/post/{title}', [PostController::class, 'show'])
+    ->middleware(['auth', 'check.post.title']);
+
+Route::get('/articles/detail',[ArticleController::class,'index1'])->middleware('auth');
+
+Route::get('/articles',[ArticleController::class,'index'])
+    ->middleware('auth');
+
+Route::get('/password', function () {
+    return 'Admin Page -  access by password';
+})->middleware('check.password');
+
+    
 require __DIR__.'/auth.php';
+

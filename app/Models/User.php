@@ -46,4 +46,5 @@ public function latestCommentThroughPost() {
         'id'            // PK on posts table
     );
 }
+
 }
