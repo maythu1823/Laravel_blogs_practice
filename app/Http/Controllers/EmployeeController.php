@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use Illuminate\Http\Request;
+
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 
@@ -60,4 +62,19 @@ public function index2()
         return "deleted successfully!";
      }
 
+     public function createEmployee()
+     {
+     return view('employees.create_employee');
+     }
+
+    public function store(Request $request)
+  {
+      Employee::create([
+          'name' => $request->name,
+          'email' => $request->email,
+          'position' => $request->position,
+      ]);
+
+      return redirect('/employee_create');
+  }
 }

@@ -72,6 +72,7 @@ Route::get('/password', function () {
     return 'Admin Page -  access by password';
 })->middleware('check.password');
 
-    
+Route::get('/employee_create',[EmployeeController::class,'createEmployee']) ->middleware('auth');
+Route::post('/employees/store', [EmployeeController::class, 'store']);
 require __DIR__.'/auth.php';
 
