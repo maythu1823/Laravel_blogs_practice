@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         'check.email' => \App\Http\Middleware\CheckEmail::class,
          'check.post.title' => \App\Http\Middleware\CheckPostTitle::class,
          'check.password' => \App\Http\Middleware\CheckPassword::class,
+         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
     ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -70,7 +70,7 @@ Route::get('/articles',[ArticleController::class,'index'])
 
 Route::get('/password', function () {
     return 'Admin Page -  access by password';
-})->middleware('check.password');
+})->middleware(['auth', 'password.confirm']);
 
 Route::get('/employee_create',[EmployeeController::class,'createEmployee']) ->middleware('auth');
 Route::post('/employees/store', [EmployeeController::class, 'store']);
