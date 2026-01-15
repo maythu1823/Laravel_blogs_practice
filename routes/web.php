@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\Product\ProductController;
+
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TestRelationship\UserController;
 use App\Http\Controllers\PostController;
@@ -21,7 +21,7 @@ Route::get('/articles/more', function() {
  return redirect()->route('article.details');
 });
 
-Route::get('/products',[ProductController::class,'product']);
+
 
 Route::get('/employees',[EmployeeController::class,'index']);
 Route::get('/employees/detail',[EmployeeController::class,'index1']);
