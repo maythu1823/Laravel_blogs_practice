@@ -69,12 +69,55 @@ public function index2()
 
     public function store(Request $request)
   {
-      Employee::create([
+//       Employee::create([
+//           'name' => $request->name,
+//           'email' => $request->email,
+//           'position' => $request->position,
+//       ]);
+
+//       return redirect('/employee_create');
+  //}
+  // Validate form data
+    $validated = $request->validate([
+    'name' => 'required|string|min:3|max:255',
+    'email' => 'required|email:rfc,dns|max:255',
+    'position' => 'required|string|min:3|max:255',
+]);
+
+
+    // Save to database
+    Employee::create($validated);
+
+    // Redirect back to create page
+    return redirect('/employee_create')->with('success', 'new employee created successfully!');
+}
+     public function employee_list()
+{
+    $employees = Employee::all();
+    return view('Employees.employee_list', compact('employees'));
+}
+     public function edit($id)
+{
+    $emp = Employee::findOrFail($id);
+    return view('employees.edit', compact('emp'));
+}
+ public function update_employee(Request $request, $id)
+  {
+      $emp = Employee::findOrFail($id);
+
+      $emp->update([
           'name' => $request->name,
           'email' => $request->email,
           'position' => $request->position,
       ]);
 
-      return redirect('/employee_create');
+      return redirect('/employee_list');
   }
+     public function destroy($id)
+{
+    $emp = Employee::findOrFail($id);
+    $emp->delete();
+
+    return redirect('/employee_list');
+}
 }

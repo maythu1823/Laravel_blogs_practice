@@ -15,6 +15,11 @@
 
           
             <div class="p-8">
+                @if(session('success'))
+    <div class="bg-green-50 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+        {{ session('success') }}
+    </div>
+@endif
                 <form action="employees/store" method="POST" class="space-y-6">
                     @csrf
 
@@ -23,10 +28,13 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             Enter Full Name
                         </label>
-                        <input type="text" name="name" placeholder="May Thu Khine"
+                        <input type="text" name="name"  value="{{ old('name') }}" placeholder="May Thu Khine"
                             class="w-full rounded-lg border-gray-300 px-4 py-2.5
                                    focus:border-blue-500 focus:ring-blue-500
                                    transition duration-200">
+                                   @error('name')
+    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+@enderror
                     </div>
 
                    
@@ -34,10 +42,13 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             Email Address
                         </label>
-                        <input type="email" name="email" placeholder="may@example.com"
+                        <input type="email" name="email"  value="{{ old('email') }}" placeholder="may@example.com"
                             class="w-full rounded-lg border-gray-300 px-4 py-2.5
                                    focus:border-blue-500 focus:ring-blue-500
                                    transition duration-200">
+                                   @error('email')
+    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+@enderror
                     </div>
 
                     
@@ -45,10 +56,13 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             Position
                         </label>
-                        <input type="text" name="position" placeholder="Assistant Teacher"
+                        <input type="text" name="position"  value="{{ old('position') }}" placeholder="Assistant Teacher"
                             class="w-full rounded-lg border-gray-300 px-4 py-2.5
                                    focus:border-blue-500 focus:ring-blue-500
                                    transition duration-200">
+                                   @error('position')
+    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+@enderror
                     </div>
 
                     

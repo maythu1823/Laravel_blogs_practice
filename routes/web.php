@@ -72,7 +72,16 @@ Route::get('/password', function () {
     return 'Admin Page -  access by password';
 })->middleware(['auth', 'password.confirm']);
 
-Route::get('/employee_create',[EmployeeController::class,'createEmployee']) ->middleware('auth');
+Route::get('/employee_create',[EmployeeController::class,'createEmployee']) ->middleware('auth')->name('employee_create'); ;
 Route::post('/employees/store', [EmployeeController::class, 'store']);
+
+Route::get('/employee_list', [EmployeeController::class, 'employee_list'])
+    ->middleware('auth')
+    ->name('employee_list'); 
+
+  Route::get('/employee_edit/{id}', [EmployeeController::class, 'edit'])->middleware('auth');
+  Route::put('/employee_update/{id}', [EmployeeController::class, 'update_employee']);
+
+  Route::delete('/employee_delete/{id}', [EmployeeController::class, 'destroy']);
 require __DIR__.'/auth.php';
 
